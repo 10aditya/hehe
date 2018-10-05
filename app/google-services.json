@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "692511291673",
+    "firebase_url": "https://college-activity-management.firebaseio.com",
+    "project_id": "college-activity-management",
+    "storage_bucket": "college-activity-management.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:692511291673:android:5efadecf9e723888",
+        "android_client_info": {
+          "package_name": "com.hehe.cam"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "692511291673-cmj6fm875epfarh1gn6vi5h1kss8178j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUOkNfttNWq61G-FIhYXcMHaglUTogH08"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
