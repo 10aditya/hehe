@@ -1,0 +1,132 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    android:padding="25dp">
+
+    <RelativeLayout
+        android:id="@+id/lel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true">
+
+        <Spinner
+            android:id="@+id/roleSpinner"
+            style="@style/spinner_style"
+            android:layout_width="130dp"
+            android:layout_height="35dp"
+            android:layout_centerHorizontal="true"
+            android:outlineProvider="bounds" />
+
+        <Spinner
+            android:id="@+id/branchSpinner"
+            style="@style/spinner_style"
+            android:layout_width="130dp"
+            android:layout_height="35dp"
+            android:layout_below="@+id/roleSpinner"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            android:outlineProvider="bounds" />
+
+        <Spinner
+            android:id="@+id/yearSpinner"
+            style="@style/spinner_style"
+            android:layout_width="130dp"
+            android:layout_height="35dp"
+            android:layout_below="@+id/branchSpinner"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            android:outlineProvider="bounds"
+            android:visibility="invisible" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/lel2"
+        android:layout_width="match_parent"
+        android:layout_height="162dp"
+        android:layout_below="@+id/lel"
+        android:background="@android:color/white"
+        android:orientation="vertical"
+        android:weightSum="2">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            android:background="@android:color/white">
+
+            <EditText
+                android:id="@+id/fieldEmail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:hint="Email Id"
+                android:paddingStart="4dp"
+                android:textColor="@android:color/black"
+                android:textSize="16dp"
+                tools:ignore="SpUsage" />
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            android:background="@android:color/white">
+
+            <EditText
+                android:id="@+id/fieldPassword"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:paddingStart="4dp"
+                android:textColor="@android:color/black"
+                android:textSize="16dp"
+                tools:ignore="SpUsage" />
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:layout_below="@+id/lel2"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:padding="4dp"
+        android:weightSum="2">
+
+        <Button
+            android:id="@+id/emailSignInButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            android:background="@android:color/holo_red_light"
+            android:text="Log In"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/emailCreateAccountButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="4dp"
+            android:layout_weight="1"
+            android:background="#8cff42"
+            android:text="Sign In"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
+    </LinearLayout>
+</RelativeLayout>

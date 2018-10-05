@@ -1,15 +1,26 @@
 package com.hehe.cam;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.hehe.cam.models.LectureModel;
 
 public class MainActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
+    private DatabaseReference reference;
+    private FloatingActionButton fab;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -35,10 +46,42 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Button button = findViewById(R.id.uploadday);
 
-        mTextMessage = (TextView) findViewById(R.id.message);
+        fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, TeacherPostActivity.class));
+
+            }
+        });
+        final EditText day = findViewById(R.id.day);
+        final EditText start = findViewById(R.id.start);
+        final EditText end = findViewById(R.id.end);
+        final EditText subject = findViewById(R.id.subject);
+        final EditText tid = findViewById(R.id.tid);
+        final EditText lec = findViewById(R.id.lecno);
+        final EditText room = findViewById(R.id.room);
+
+        reference = FirebaseDatabase.getInstance().getReference().child("cmpn").child("te");
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reference.child("tt").child(day.getText().toString())
+                        .child(lec.getText().toString())
+                        .setValue(new LectureModel(
+                                end.getText().toString(),
+                                start.getText().toString(),
+                                tid.getText().toString(),
+                                subject.getText().toString(),
+                                room.getText().toString()
+                        ));
+            }
+        });
     }
 
 }
