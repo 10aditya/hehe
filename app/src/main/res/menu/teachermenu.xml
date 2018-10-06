@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/posts"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="Posts" />
+
+    <item
+        android:id="@+id/schedule"
+        android:icon="@drawable/ic_schedule_black_24dp"
+        android:title="Schedule" />
+
+    <item
+        android:id="@+id/profile"
+        android:icon="@drawable/ic_person_black_24dp"
+        android:title="Profile" />
+</menu>

@@ -1,10 +1,13 @@
 package com.hehe.cam;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
@@ -46,16 +49,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button button = findViewById(R.id.uploadday);
 
-        fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, TeacherPostActivity.class));
-
-            }
-        });
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        String role = sp.getString("role", "teacher");
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        if (role.equals("teacher"))
+            fragmentTransaction.replace(R.id.base_frame, new TeacherFragment());
+        else fragmentTransaction.replace(R.id.base_frame, new StudentFragment());
+        fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
+        fragmentTransaction.commitAllowingStateLoss();
+       /* Button button = findViewById(R.id.uploadday);
         final EditText day = findViewById(R.id.day);
         final EditText start = findViewById(R.id.start);
         final EditText end = findViewById(R.id.end);
@@ -81,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
                                 room.getText().toString()
                         ));
             }
-        });
+        });*/
     }
 
 }

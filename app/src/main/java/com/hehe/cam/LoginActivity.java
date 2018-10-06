@@ -43,9 +43,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private FirebaseAuth mAuth;
     private TextView logIn, signUp;
     private Spinner roleSpinner, branchSpinner, yearSpinner;
-    private String Branch, Year, Role;
+    private String Branch = "", Year = "", Role = "";
     private DatabaseReference reference;
     private int count;
+    private SharedPreferences.Editor spe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -200,18 +201,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void addUserToDatabase(String email) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor spe = sharedPreferences.edit();
-        spe.putString("branch", Branch.toLowerCase());
+        spe.putString("branch", Branch.toLowerCase().replace(".", ""));
         spe.putString("role", Role.toLowerCase());
         if (!Branch.equals("F.E.") && !Role.equals("Teacher")) {
             spe.putString("year", Year.toLowerCase().replace(".", ""));
         }
-        spe.apply();
+
         if (Branch.equals("F.E.")) {
             reference = FirebaseDatabase.getInstance().getReference().child(Branch.toLowerCase().replace(".", "")).child(Role.toLowerCase());
         } else if (Role.equals("Teacher")) {
             reference = FirebaseDatabase.getInstance().getReference().child(Branch.toLowerCase().replace(".", "")).child(Role.toLowerCase());
         } else {
-            reference = FirebaseDatabase.getInstance().getReference().child(Branch.toLowerCase().replace(".", "")).child(Year.toLowerCase()).child(Role.toLowerCase());
+            reference = FirebaseDatabase.getInstance().getReference().child(Branch.toLowerCase().replace(".", "")).child(Year.toLowerCase().replace(".", "")).child(Role.toLowerCase());
         }
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -226,13 +227,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         });
         String id;
         if (Role.equals("Teacher")) {
-            id = String.format(Locale.ENGLISH, "%s%02d", Branch.toLowerCase() + "t", count + 1);
+            id = String.format(Locale.ENGLISH, "%s%02d", Branch.toLowerCase().replace(".", "") + "t", count + 1);
         } else {
-            id = String.format(Locale.ENGLISH, "%s%02d", Branch.toLowerCase() + "s", count + 1);
+            id = String.format(Locale.ENGLISH, "%s%02d", Branch.toLowerCase().replace(".", "") + "s", count + 1);
         }
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("id", id);
         hashMap.put("email", email);
+        spe.putString("id", id);
+        spe.putString("email", email);
+        spe.apply();
         reference.child(id).setValue(hashMap);
     }
 
@@ -265,12 +269,43 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     Toast.LENGTH_SHORT).show();
                             FirebaseUser user = mAuth.getCurrentUser();
                             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
-                            SharedPreferences.Editor spe = sharedPreferences.edit();
-                            spe.putString("branch", Branch.toLowerCase());
+                            spe = sharedPreferences.edit();
+                            spe.putString("branch", Branch.toLowerCase().replace(".", ""));
                             spe.putString("role", Role.toLowerCase());
+                            DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
                             if (!Branch.equals("F.E.") && !Role.equals("Teacher")) {
                                 spe.putString("year", Year.toLowerCase().replace(".", ""));
                             }
+
+                            if (Branch.equals("F.E.")) {
+                                reference = reference.child("fe").child(Role.toLowerCase());
+                            } else {
+                                reference = reference.child(Branch.toLowerCase().replace(".", ""));
+                                if (Role.equals("Teacher")) {
+                                    reference = reference.child("teacher");
+                                } else {
+                                    reference = reference.child(Year.toLowerCase().replace(".", "")).child("student");
+                                }
+                            }
+                            reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                        Log.i("email:", snapshot.child("email").getValue(String.class));
+                                        if (email.equals(snapshot.child("email").getValue(String.class))) {
+                                            Log.i("id:", snapshot.child("id").getValue(String.class));
+                                            spe.putString("id", snapshot.child("id").getValue(String.class));
+                                            spe.apply();
+                                            break;
+                                        }
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
                             spe.apply();
                             updateUI(user);
                         } else {
