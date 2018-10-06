@@ -8,7 +8,15 @@
     android:orientation="vertical"
     android:padding="25dp">
 
+    <ImageView
+        android:src="@drawable/web_hi_res_512"
+        android:id="@+id/juh"
+        android:layout_centerHorizontal="true"
+        android:layout_width="90dp"
+        android:layout_height="90dp" />
     <RelativeLayout
+        android:layout_marginTop="16dp"
+        android:layout_below="@+id/juh"
         android:id="@+id/lel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -46,7 +54,7 @@
     <LinearLayout
         android:id="@+id/lel2"
         android:layout_width="match_parent"
-        android:layout_height="162dp"
+        android:layout_height="140dp"
         android:layout_below="@+id/lel"
         android:background="@android:color/white"
         android:orientation="vertical"
