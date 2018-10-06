@@ -55,9 +55,13 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         if (role.equals("teacher"))
             fragmentTransaction.replace(R.id.base_frame, new TeacherFragment());
-        else fragmentTransaction.replace(R.id.base_frame, new StudentFragment());
+        else {
+            fragmentTransaction.replace(R.id.base_frame, new StudentFragment());
+            startService(new Intent(this.getBaseContext(), StudentService.class));
+        }
         fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
         fragmentTransaction.commitAllowingStateLoss();
+
        /* Button button = findViewById(R.id.uploadday);
         final EditText day = findViewById(R.id.day);
         final EditText start = findViewById(R.id.start);

@@ -97,7 +97,7 @@ public class TeacherPostActivity extends AppCompatActivity implements View.OnCli
         Log.i("role : ", role);
         Log.i("year : ", year);
         Log.i("branch : ", branch);
-
+        typeSpinner.setPrompt("Type");
         getSupportActionBar().setTitle("Create new post...");
         final List<String> types = new ArrayList<>();
         types.add("Assignment");
@@ -169,6 +169,7 @@ public class TeacherPostActivity extends AppCompatActivity implements View.OnCli
         if (docfile != null) {
             boolean t = uploadFile();
         }
+        if(file==null && docfile==null){postAgainAgain();}
 
     }
 

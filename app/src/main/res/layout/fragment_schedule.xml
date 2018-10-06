@@ -1,8 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ScheduleFragment">
+    tools:context=".ScheduleFragment"
+    android:background="#e0e0e0">
 
+    <TextView
+        android:id="@+id/mon"
+        android:layout_width="wrap_content"
+        android:layout_height="42dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:text="Monday -"
+        android:textSize="20dp"
+        android:padding="5dp"
+        android:layout_marginTop="80dp"/>
+
+    <Spinner
+        android:id="@+id/roleSpinner1"
+        style="@style/spinner_style"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="80dp" />
+    <TextView
+        android:id="@+id/tues"
+        android:layout_width="wrap_content"
+        android:layout_height="42dp"
+        android:layout_marginTop="160dp"
+        android:text="Tuesday -"
+        android:textSize="20dp"
+        android:padding="5dp"/>
+
+    <Spinner
+        android:id="@+id/roleSpinner2"
+        style="@style/spinner_style"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_alignTop="@+id/tues"
+        android:layout_marginStart="120dp" />
+    <TextView
+        android:id="@+id/wed"
+        android:layout_width="wrap_content"
+        android:layout_height="42dp"
+        android:layout_marginTop="240dp"
+        android:text="Wednesday-"
+        android:textSize="20dp"
+        android:padding="5dp"/>
+
+    <Spinner
+        android:id="@+id/roleSpinner3"
+        style="@style/spinner_style"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_alignTop="@+id/wed"
+        android:layout_marginStart="120dp" />
+    <TextView
+        android:id="@+id/thurs"
+        android:layout_width="wrap_content"
+        android:layout_height="42dp"
+        android:layout_alignParentStart="true"
+        android:text="Thursday -"
+        android:textSize="20dp"
+        android:layout_marginTop="320dp"
+        android:padding="5dp"/>
+
+    <Spinner
+        android:id="@+id/roleSpinner4"
+        style="@style/spinner_style"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_alignTop="@+id/thurs"
+        android:layout_marginStart="120dp" />
+    <TextView
+        android:id="@+id/fri"
+        android:layout_width="wrap_content"
+        android:layout_height="42dp"
+        android:layout_alignParentStart="true"
+        android:text="Friday -"
+        android:textSize="20dp"
+        android:layout_marginTop="400dp"
+        android:padding="5dp"/>
+
+    <Spinner
+        android:id="@+id/roleSpinner5"
+        style="@style/spinner_style"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_alignTop="@+id/fri"
+        android:layout_marginStart="120dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="110dp"
+        android:layout_marginTop="16dp"
+        android:text="Time-Table"
+        android:textSize="30dp"
+        android:textStyle="bold" />
 </RelativeLayout>

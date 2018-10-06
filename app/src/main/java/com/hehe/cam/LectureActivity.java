@@ -3,6 +3,7 @@ package com.hehe.cam;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.preference.PreferenceManager;
@@ -22,6 +23,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -42,6 +44,7 @@ public class LectureActivity extends AppCompatActivity {
     private Spinner yearSpinner;
     RecyclerView recyclerView;
     List<HashMap<String, String>> hashMaps;
+    private HashMap<String, String> isPresent;
 
     @Override
 
@@ -60,13 +63,16 @@ public class LectureActivity extends AppCompatActivity {
         List.add("ETRX");
 
         List<String> year = new ArrayList<>();
-        year.add("F.E.");
-        year.add("S.E.");
         year.add("T.E.");
+        year.add("S.E.");
+        year.add("F.E.");
         year.add("B.E.");
 
         branchSpinner = findViewById(R.id.branchSpinner);
         yearSpinner = findViewById(R.id.yearSpinner);
+
+        branchSpinner.setPrompt("Branch");
+        yearSpinner.setPrompt("Year");
 
         findViewById(R.id.submit).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +80,7 @@ public class LectureActivity extends AppCompatActivity {
                 post();
             }
         });
+        isPresent = new HashMap<>();
         ArrayAdapter<String> yearAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, year);
         yearAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         yearSpinner.setAdapter(yearAdapter);
@@ -127,7 +134,12 @@ public class LectureActivity extends AppCompatActivity {
         map.put("start", start.getText().toString());
         map.put("end", end.getText().toString());
         map.put("subject", subject.getText().toString());
-
+        String s = reference.push().getKey();
+        reference.child(s).setValue(map);
+        reference.child("presenty").setValue(isPresent);
+        Toast.makeText(this, "Presenty added successfully!", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 
     private void getStudents() {
@@ -165,13 +177,13 @@ public class LectureActivity extends AppCompatActivity {
         private Context context;
         private List<HashMap<String, String>> hashMaps;
         private RecyclerView linearlayout;
-        private boolean[] isPresent;
+
 
         public Adapter(Context context, List<HashMap<String, String>> hashMaps, RecyclerView linearlayout) {
             this.context = context;
             this.hashMaps = hashMaps;
             this.linearlayout = linearlayout;
-            isPresent = new boolean[100];
+
         }
 
         @NonNull
@@ -188,7 +200,7 @@ public class LectureActivity extends AppCompatActivity {
             holder.present.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    isPresent[Integer.parseInt(holder.roll.getText().toString())] = true;
+                    isPresent.put(holder.roll.getText().toString(), "true");
                     smoothScroller.setTargetPosition(i + 1);
                     linearlayout.getLayoutManager().startSmoothScroll(smoothScroller);
                 }
@@ -196,7 +208,7 @@ public class LectureActivity extends AppCompatActivity {
             holder.absent.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    isPresent[Integer.parseInt(holder.roll.getText().toString())] = false;
+                    isPresent.put(holder.roll.getText().toString(), "false");
                     smoothScroller.setTargetPosition(i + 1);
                     linearlayout.getLayoutManager().startSmoothScroll(smoothScroller);
                 }

@@ -11,55 +11,77 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
-import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class StudentService extends Service {
 
-    private static String channel_id = "1010101", branch, year, role, id;;
+    private static String channel_id = "1010101", branch, year, role, id;
+    ;
+    private int last;
+    SharedPreferences.Editor spe;
+    private int count;
+    private SharedPreferences preferences;
 
     @Override
     public void onCreate() {
         super.onCreate();
 //        Toast.makeText(this, "Service started", Toast.LENGTH_SHORT).show();
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        spe = preferences.edit();
         role = preferences.getString("role", "teacher");
         year = preferences.getString("year", "");
         id = preferences.getString("id", "");
         branch = preferences.getString("branch", "cmpn");
+        last = preferences.getInt("last", 0);
+        count = 0;
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-/*        reference.child().addChildEventListener(new ChildEventListener() {
+        reference.child(branch).child(year).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                count =
+                        (int) dataSnapshot.getChildrenCount();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        reference.child(branch).child(year).child("posts").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String s) {
 
-                Intent i = new Intent(StudentService.this, MainActivity.class);
-                NotificationCompat.Builder builder = new NotificationCompat.Builder(StudentService.this, channel_id)
-                        .setSmallIcon(R.drawable.notification_icon)
-                        .setContentTitle("New Quiz...!!")
-                        .setContentText("New Quiz by "
-                                + snapshot.child("quiz_detail").child("teacher").getValue()
-                                + " on "
-                                + snapshot.child("quiz_detail").child("topic").getValue())
-                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                        .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
-                        .setDefaults(NotificationCompat.DEFAULT_VIBRATE)
-                        // .setVibrate(new long[]{100})
-                        //    .setDefaults(NotificationCompat.DEFAULT_VIBRATE)
-                        .setAutoCancel(true)
-                        .setContentIntent(PendingIntent.getActivity(StudentService.this, 0, i, 0));
-                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(StudentService.this);
+                count++;
 
-                synchronized (notificationManager) {
-                    notificationManager.notify();
+                if (last < count) {
+                    spe = preferences.edit();
+                    Intent i = new Intent(StudentService.this, MainActivity.class);
+                    NotificationCompat.Builder builder = new NotificationCompat.Builder(StudentService.this, channel_id)
+                            .setSmallIcon(R.drawable.notification_icon)
+                            .setContentTitle("New " + snapshot.child("type").getValue(String.class) + "...!!")
+                            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                            .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                            .setDefaults(NotificationCompat.DEFAULT_VIBRATE)
+                            // .setVibrate(new long[]{100})
+                            //    .setDefaults(NotificationCompat.DEFAULT_VIBRATE)
+                            .setAutoCancel(true)
+                            .setContentIntent(PendingIntent.getActivity(StudentService.this, 0, i, 0));
+                    NotificationManagerCompat notificationManager = NotificationManagerCompat.from(StudentService.this);
+
+                    synchronized (notificationManager) {
+                        notificationManager.notify();
+                    }
+
+                    spe.putInt("last", count);
+                    spe.apply();
+                    notificationManager.notify(10001, builder.build());// notificationId is a unique int for each notification that you must define
                 }
-
-                notificationManager.notify(10001, builder.build());// notificationId is a unique int for each notification that you must define
-
             }
 
             @Override
@@ -81,7 +103,8 @@ public class StudentService extends Service {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        })*/;
+        });
+
 
     }
 

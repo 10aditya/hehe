@@ -1,10 +1,12 @@
 package com.hehe.cam;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -75,6 +77,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         year.add("S.E.");
         year.add("T.E.");
         year.add("B.E.");
+
+        roleSpinner.setPrompt("User Type");
+        yearSpinner.setPrompt("Year");
+        branchSpinner.setPrompt("Branch");
 
         ArrayAdapter<String> roleAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, role);
         roleAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -256,7 +262,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             return;
         }*/
 
-
+         
         // [START sign_in_with_email]
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -318,6 +324,28 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                         // [START_EXCLUDE]
                         if (!task.isSuccessful()) {
+                            final AlertDialog alertDialog = new AlertDialog.Builder(LoginActivity.this).create();
+                            alertDialog.setIcon(R.drawable.ic_error_black_24dp);
+                            alertDialog.setTitle("Authentication Failed!");
+                            alertDialog.setMessage("User does not exists or either Email or password is wrong.");
+                            alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "Try Again!", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    alertDialog.dismiss();
+                                }
+                            });
+                            alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Forgot Password", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    try {
+                                        mAuth.sendPasswordResetEmail(email);
+                                    } catch (Exception e) {
+                                        Toast.makeText(LoginActivity.this, "User does not exit!", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                            alertDialog.show();
+
                             // mStatusTextView.setText(R.string.auth_failed);
                         }
 

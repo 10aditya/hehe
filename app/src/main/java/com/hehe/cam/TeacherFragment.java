@@ -36,7 +36,7 @@ public class TeacherFragment extends Fragment implements View.OnClickListener{
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
-        fragmentTransaction.replace(R.id.framelayout, new PostFragment());
+        fragmentTransaction.replace(R.id.framelayout1, new PostFragment());
         fragmentTransaction.commitAllowingStateLoss();
         FloatingActionButton fab = v.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -60,20 +60,20 @@ public class TeacherFragment extends Fragment implements View.OnClickListener{
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-            fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
             switch (item.getItemId()) {
                 case R.id.posts:
-                    fragmentTransaction.replace(R.id.framelayout, new PostFragment());
-                    return true;
+                    fragmentTransaction.replace(R.id.framelayout1, new PostFragment());
+                    break;
                 case R.id.schedule:
-                    fragmentTransaction.replace(R.id.framelayout, new ScheduleFragment());
-                    return true;
+                    fragmentTransaction.replace(R.id.framelayout1, new ScheduleFragment());
+                    break;
                 case R.id.profile:
-
-                    return true;
+                    fragmentTransaction.replace(R.id.framelayout1, new TeacherProfileFragment());
+                    break;
             }
+            fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
             fragmentTransaction.commitAllowingStateLoss();
-            return false;
+            return true;
         }
     };
 

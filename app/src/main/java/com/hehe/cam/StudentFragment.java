@@ -48,16 +48,16 @@ public class StudentFragment extends Fragment {
             switch (item.getItemId()) {
                 case R.id.posts:
                     fragmentTransaction.replace(R.id.framelayout, new StudentFeedFragment());
-                    return true;
+                    break;
                 case R.id.schedule:
                     fragmentTransaction.replace(R.id.framelayout, new ScheduleFragment());
-                    return true;
+                    break;
                 case R.id.profile:
-
-                    return true;
+                    fragmentTransaction.replace(R.id.framelayout, new StudentProfileFragment());
+                    break;
             }
             fragmentTransaction.commitAllowingStateLoss();
-            return false;
+            return true;
         }
     };
 

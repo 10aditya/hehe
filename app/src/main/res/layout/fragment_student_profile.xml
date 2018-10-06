@@ -29,12 +29,12 @@
         android:padding="15dp"
         android:text="Name:"
         android:textColor="@android:color/black"
-
         android:textSize="18dp"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/branch"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -42,6 +42,7 @@
         android:layout_marginStart="0dp"
         android:layout_marginTop="247dp"
         android:padding="15dp"
+
         android:text="Branch:"
         android:textColor="@android:color/black"
         android:textSize="18dp"
@@ -50,10 +51,11 @@
     <TextView
         android:id="@+id/name2"
         android:layout_width="276dp"
+
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/name"
         android:layout_marginStart="106dp"
-        android:text="Dr. Vinayak Shinde"
+        android:text="Saajan Kumar Jha"
         android:textColor="@android:color/black"
         android:textSize="18dp" />
 
@@ -61,26 +63,25 @@
     <TextView
         android:id="@+id/dobv"
         android:layout_width="wrap_content"
-
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/branch"
         android:layout_alignParentEnd="true"
 
         android:layout_marginEnd="22dp"
-        android:text="23-1-1978"
+        android:text="20-12-1998"
         android:textColor="@android:color/black"
         android:textSize="18dp" />
 
     <TextView
         android:id="@+id/dob"
         android:layout_width="wrap_content"
-
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/branch"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="128dp"
         android:padding="5dp"
         android:text="D.O.B:"
+
         android:textColor="@android:color/black"
         android:textSize="18dp"
         android:textStyle="bold" />
@@ -89,30 +90,30 @@
     <TextView
         android:id="@+id/cmpn"
         android:layout_width="wrap_content"
-
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@id/branch"
         android:layout_alignStart="@+id/name2"
         android:text="CMPN"
         android:textColor="@android:color/black"
+
         android:textSize="18dp" />
 
     <TextView
         android:id="@+id/num"
         android:layout_width="wrap_content"
-
         android:layout_height="wrap_content"
         android:layout_marginTop="297dp"
         android:padding="15dp"
         android:text="Mobile:"
         android:textColor="@android:color/black"
+
         android:textSize="18dp"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/numr"
-
         android:layout_width="125dp"
+
         android:layout_height="29dp"
         android:layout_alignBaseline="@id/num"
         android:layout_alignStart="@+id/name2"
@@ -124,11 +125,11 @@
     <TextView
         android:id="@+id/mail"
         android:layout_width="wrap_content"
-
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/name"
         android:layout_marginTop="347dp"
         android:padding="15dp"
+
         android:text="E-mail:"
         android:textColor="@android:color/black"
         android:textSize="18dp"
@@ -161,10 +162,11 @@
     <TextView
         android:id="@+id/designation_value"
         android:layout_width="242dp"
+
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@id/designation"
         android:layout_alignStart="@+id/name2"
-        android:text="H.O.D."
+        android:text="Assitant Professor"
         android:textColor="@android:color/black"
         android:textSize="18dp" />
 
@@ -176,7 +178,6 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
         android:src="@drawable/ic_edit_black_24dp"
         app:fabSize="normal" />
 
